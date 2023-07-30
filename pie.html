@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:rgb(110, 103, 255);">
+<head>
+
+<style>
+    body {
+      background-image: url('/Users/parthshukla/NarVisProj/space-background-with-stardust-and-shining-stars-realistic-colorful-cosmos-with-nebula-and-milky-way-blue-galaxy-background-beautiful-outer-space-infinite-universe-illustration-free-vector.jpg');
+    }
+</style>
+
+<title>Page Title</title>
+</head>
+<body>
+
+  
+
+<button type="submit">
+  <img src="/Users/parthshukla/NarVisProj/25694.png" alt="buttonpng" border="0"
+  onclick="location.href='index.html'" />
+</button>
+
+<button onclick="location.href='pageOne.html'">
+  ⬅
+</button>
+
+<button onclick="location.href='pageThree.html'">
+  ⮕
+</button>
+  
+
+<h1><FONT COLOR=white>Population of Countries in Asia and Europe</h1>
+<button onclick="changeChart(asia)">Asia</button>
+<p>
+  India: 1,428,627,663 
+  <br>China: 1,425,671,352 
+  <br>Indonesia: 277,534,122
+  <br>Pakistan: 240,485,658  
+  
+</p>
+<button onclick="changeChart(europe)">Europe</button>
+<p>
+  Russia: 144,444,359 
+  <br>Germany: 83,294,633 
+  <br>UK: 144,444,359
+  <br>France: 64,756,584
+  
+</p>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+
+
+
+<div id="pageTwo"></div>
+
+<script>
+
+
+  var radius = 200
+
+  var asia = {india: 1428627663, china: 1425671352, indonesia:277534122, pakistan:240485658}
+  var europe = {russia: 144444359, germany: 83294633, uk:144444359, france:64756584}
+
+  var svg = d3.select("#pageTwo")
+    .append("svg")
+      .attr("width", 500)
+      .attr("height", 500)
+    .append("g")
+      .attr("transform", "translate(" + 500 / 2 + "," + 500 / 2 + ")");
+
+  var color = d3.scaleOrdinal()
+    .range(d3.schemeAccent);
+
+  
+  
+  function changeChart(data) {
+  
+    var pie = d3.pie()
+      .value(function(d) {return d.value; })
+      .sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} )
+    var data_ready = pie(d3.entries(data))
+  
+    var u = svg.selectAll("path")
+      .data(data_ready)
+  
+    u.enter().append('path').merge(u).transition().duration(300).attr('d', d3.arc().innerRadius(100).outerRadius(200))
+      .attr('fill', function(d){ return(color(d.data.key)) })  
+    u.exit().remove()
+  
+  }
+
+
+  changeChart(asia)
+
+
+
+  </script>
+
+
+
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
+<svg width="460" height="400" id="ann2"></svg>
+
+<script>
+
+const annotations = [
+  {
+    note: {
+      label: "Germany has a lower population but is still closer to GDP of USA than others",
+    },
+    x: 200,
+    y: 0,
+    dy: 100,
+    dx: 50
+  }
+]
+
+const makeAnnotations = d3.annotation()
+  .annotations(annotations)
+d3.select("#ann2")
+  .append("g")
+  .call(makeAnnotations)
+
+</script>
+
+
+</body>
+</html>
